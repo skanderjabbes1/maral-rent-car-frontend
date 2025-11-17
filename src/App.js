@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import CarList from './components/CarList';
 import Home from './pages/Home';
+import AdminDashboard from './pages/AdminDashboard';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import './App.css';
@@ -16,7 +17,8 @@ function AppContent() {
     const savedToken = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
     if (savedToken && savedUser) {
-      setUser(JSON.parse(savedUser));
+      const parsedUser = JSON.parse(savedUser);
+      setUser(parsedUser);
     }
   }, []);
 
@@ -38,6 +40,9 @@ function AppContent() {
     navigate('/login');
   };
 
+  // Check if user is admin - either from state or localStorage
+  const isAdmin = user?.role === 'admin' || JSON.parse(localStorage.getItem('user'))?.role === 'admin';
+
   return (
     <div className="App">
       <Header user={user} onLogout={handleLogout} />
@@ -47,6 +52,7 @@ function AppContent() {
         <Route path="/register" element={<Register onRegisterSuccess={handleRegisterSuccess} />} />
         <Route path="/" element={<Home user={user} />} />
         <Route path="/fleet" element={user ? <CarList /> : <Navigate to="/login" replace />} />
+        <Route path="/admin" element={isAdmin ? <AdminDashboard user={user || JSON.parse(localStorage.getItem('user'))} onLogout={handleLogout} /> : <Navigate to="/" replace />} />
       </Routes>
 
       <Footer />
