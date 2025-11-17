@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createBooking } from '../api';
+import { toast } from 'react-toastify';
 
 const BookingForm = ({ car, userId, onClose }) => {
   const [name, setName] = useState('');
@@ -30,14 +31,19 @@ const BookingForm = ({ car, userId, onClose }) => {
 
       await createBooking(bookingData);
       setSuccess(true);
-      setMsg('Your booking was successful! Check your email for confirmation.'); // Customize message as desired
+      setMsg('Your booking was successful! Check your email for confirmation.');
+
+      // Toast notification
+      toast.success('Booking confirmed!');
+
       setTimeout(() => {
         setSuccess(false);
         setMsg('');
         onClose();
-      }, 3000); // Automatically close/clear after 3 seconds
+      }, 3000);
     } catch (err) {
       setMsg('Error: ' + (err.response?.data?.error || err.message));
+      toast.error('Booking failed: ' + (err.response?.data?.error || err.message));
     }
   };
 

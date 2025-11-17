@@ -26,7 +26,7 @@ export default function Header({ user, onLogout }) {
         <nav className="header-nav">
           <Link to="/" className="header-nav-link">Home</Link>
           <Link to="/fleet" className="header-nav-link">Fleet</Link>
-          <a href="#reservations" className="header-nav-link">Reservations</a>
+          <Link to="/reservations" className="header-nav-link">Reservations</Link>
           <a href="#payment" className="header-nav-link">Payment Info</a>
           <a href="#contact" className="header-nav-link">Contact</a>
         </nav>
@@ -61,7 +61,7 @@ export default function Header({ user, onLogout }) {
           <nav className="header-mobile-nav">
             <Link to="/" className="header-mobile-link" onClick={closeMenu}>Home</Link>
             <Link to="/fleet" className="header-mobile-link" onClick={closeMenu}>Fleet</Link>
-            <a href="#reservations" className="header-mobile-link" onClick={closeMenu}>Reservations</a>
+            <Link to="/reservations" className="header-mobile-link" onClick={closeMenu}>Reservations</Link>
             <a href="#payment" className="header-mobile-link" onClick={closeMenu}>Payment Info</a>
             <a href="#contact" className="header-mobile-link" onClick={closeMenu}>Contact</a>
           </nav>

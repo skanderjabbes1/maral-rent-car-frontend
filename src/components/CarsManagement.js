@@ -47,7 +47,6 @@ export default function CarsManagement() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(`Setting ${name} to: ${value}`);
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -56,10 +55,18 @@ export default function CarsManagement() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validate required fields
-    if (!formData.brand || !formData.model || !formData.year || !formData.type || 
-        !formData.pricePerDay || !formData.fuelType || !formData.mileage || !formData.transmission) {
+    if (
+      !formData.brand ||
+      !formData.model ||
+      !formData.year ||
+      !formData.type ||
+      !formData.pricePerDay ||
+      !formData.fuelType ||
+      !formData.mileage ||
+      !formData.transmission
+    ) {
       alert('Please fill in all required fields');
       return;
     }
@@ -69,18 +76,21 @@ export default function CarsManagement() {
         brand: formData.brand.trim(),
         model: formData.model.trim(),
         year: parseInt(formData.year),
-        type: formData.type.trim(),
+        type: formData.type.trim(), // CRITICAL: must be 'type'
         pricePerDay: parseFloat(formData.pricePerDay),
         fuelType: formData.fuelType.trim(),
         mileage: parseInt(formData.mileage),
         transmission: formData.transmission.trim(),
-        features: formData.features ? formData.features.split(',').map(f => f.trim()).filter(f => f) : [],
+        features: formData.features
+          ? formData.features.split(',').map(f => f.trim()).filter(f => f)
+          : [],
         color: formData.color.trim(),
         imageUrl: formData.imageUrl.trim(),
         seatCount: parseInt(formData.seatCount) || 0,
+        // Backend sets isAvailable/createdAt automatically
       };
 
-      console.log('Submitting data:', data);
+      console.log('Submitting data:', data); // Debug: See what is sent
 
       if (editingCar) {
         await axios.put(`http://localhost:5000/api/cars/${editingCar._id}`, data, {
@@ -138,7 +148,6 @@ export default function CarsManagement() {
 
   const handleDelete = async (carId) => {
     if (!window.confirm('Are you sure you want to delete this car?')) return;
-
     try {
       await axios.delete(`http://localhost:5000/api/cars/${carId}`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -169,13 +178,15 @@ export default function CarsManagement() {
     });
   };
 
-  if (loading) return <div className="admin-section"><p>Loading cars...</p></div>;
+  if (loading) return (
+    <div className="admin-section"><p>Loading cars...</p></div>
+  );
 
   return (
     <div className="admin-section">
       <div className="section-header">
         <h2>Cars Management</h2>
-        <button 
+        <button
           className="btn-primary"
           onClick={() => setShowForm(!showForm)}
         >
@@ -323,7 +334,11 @@ export default function CarsManagement() {
           </thead>
           <tbody>
             {cars.length === 0 ? (
-              <tr><td colSpan="8" style={{ textAlign: 'center' }}>No cars found</td></tr>
+              <tr>
+                <td colSpan="8" style={{ textAlign: 'center' }}>
+                  No cars found
+                </td>
+              </tr>
             ) : (
               cars.map(car => (
                 <tr key={car._id}>
@@ -335,13 +350,13 @@ export default function CarsManagement() {
                   <td>{car.color}</td>
                   <td>{car.seatCount}</td>
                   <td>
-                    <button 
+                    <button
                       className="btn-edit"
                       onClick={() => handleEdit(car)}
                     >
                       <FaEdit /> Edit
                     </button>
-                    <button 
+                    <button
                       className="btn-delete"
                       onClick={() => handleDelete(car._id)}
                     >
