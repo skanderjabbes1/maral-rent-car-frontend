@@ -1,9 +1,11 @@
+/* HEADER GENERAL */
 .header {
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: #FFFFFF;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  padding: 0 20px;
 }
 
 .header-container {
@@ -13,15 +15,15 @@
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  padding: 0 20px;
+  position: relative;
 }
 
-/* LOGO */
 .header-logo {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  z-index: 1001;
 }
 
 .header-logo-icon {
@@ -40,7 +42,23 @@
   color: #1A1A1A;
 }
 
-/* DESKTOP NAV */
+/* HAMBURGER BUTTON */
+.header-hamburger {
+  display: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  color: #333333;
+  z-index: 1001;
+}
+
+.header-hamburger:hover {
+  background-color: #f0f0f0;
+}
+
+/* DESKTOP NAVIGATION */
 .header-nav {
   display: flex;
   gap: 30px;
@@ -50,18 +68,18 @@
 
 .header-nav-link {
   text-decoration: none;
-  color: #666;
+  color: #666666;
   font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
   transition: color 0.3s;
+  cursor: pointer;
 }
 
 .header-nav-link:hover {
   color: #4A90E2;
 }
 
-/* DESKTOP USER */
+/* DESKTOP USER SECTION */
 .header-user-section {
   display: flex;
   align-items: center;
@@ -70,7 +88,7 @@
 
 .header-user-name {
   font-size: 14px;
-  color: #333;
+  color: #333333;
 }
 
 .header-login-link,
@@ -80,6 +98,11 @@
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
+}
+
+.header-login-link:hover,
+.header-register-link:hover {
+  color: #2563eb;
 }
 
 .header-logout-btn {
@@ -93,25 +116,18 @@
   font-weight: 600;
 }
 
-/* HAMBURGER */
-.header-hamburger {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #333;
-  padding: 8px;
-  z-index: 1001;
+.header-logout-btn:hover {
+  background-color: #c82333;
 }
 
-/* MOBILE MENU */
-.header-mobile-menu {
+/* ===== MOBILE MENU ===== */
+.header-mobile-menu-wrapper {
   position: absolute;
   top: 60px;
   left: 0;
   right: 0;
-  background: white;
-  border-bottom: 1px solid #eee;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #e0e0e0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 999;
 }
@@ -119,39 +135,57 @@
 .header-mobile-nav {
   display: flex;
   flex-direction: column;
-  padding: 0;
-  border-bottom: 1px solid #eee;
-}
-
-.header-mobile-link {
-  display: block;
   padding: 15px 20px;
-  text-decoration: none;
-  color: #666;
-  font-size: 16px;
+  gap: 0;
   border-bottom: 1px solid #f0f0f0;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.header-mobile-link:hover {
-  background-color: #f5f5f5;
+.header-mobile-nav-link {
+  text-decoration: none;
+  color: #666666;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: block;
+  cursor: pointer;
+}
+
+.header-mobile-nav-link:last-child {
+  border-bottom: none;
+}
+
+.header-mobile-nav-link:hover {
   color: #4A90E2;
 }
 
-.header-mobile-user {
-  padding: 15px 20px;
+.header-mobile-user-section {
   display: flex;
   flex-direction: column;
+  padding: 15px 20px;
   gap: 10px;
 }
 
 .header-mobile-user-name {
   font-size: 14px;
-  color: #333;
+  color: #333333;
 }
 
-.header-mobile-logout {
+.header-mobile-login-link,
+.header-mobile-register-link {
+  text-decoration: none;
+  color: #4A90E2;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.header-mobile-login-link:hover,
+.header-mobile-register-link:hover {
+  color: #2563eb;
+}
+
+.header-mobile-logout-btn {
   background-color: #DC3545;
   color: white;
   border: none;
@@ -163,25 +197,36 @@
   align-self: flex-start;
 }
 
-.header-mobile-auth {
-  text-decoration: none;
-  color: #4A90E2;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
+.header-mobile-logout-btn:hover {
+  background-color: #c82333;
 }
 
-/* MOBILE (768px and below) */
+/* ===== MEDIA QUERIES ===== */
 @media (max-width: 768px) {
   .header-hamburger {
-    display: block;
+    display: block !important;
   }
 
   .header-nav {
-    display: none;
+    display: none !important;
   }
 
   .header-user-section {
-    display: none;
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0 10px !important;
+  }
+
+  .header-logo-text {
+    font-size: 16px !important;
+  }
+
+  .header-logo-icon {
+    width: 32px !important;
+    height: 32px !important;
   }
 }

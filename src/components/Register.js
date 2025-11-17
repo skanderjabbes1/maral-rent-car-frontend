@@ -17,7 +17,7 @@ export default function Register({ onRegisterSuccess }) {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/register', {
+      await axios.post('http://localhost:5000/api/users/register', {
         name,
         email,
         password,
