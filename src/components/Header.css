@@ -230,3 +230,16 @@
     height: 32px !important;
   }
 }
+/* Ensure nav links are clickable */
+.header-nav-link,
+.header-mobile-nav-link {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Keep header on top of everything */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}

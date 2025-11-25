@@ -5,9 +5,10 @@ import Register from './components/Register';
 import CarList from './components/CarList';
 import Home from './pages/Home';
 import AdminDashboard from './pages/AdminDashboard';
-import Reservations from './components/Reservations'; // <-- Import Reservations
+import Reservations from './components/Reservations';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import PaymentSection from './components/PaymentSection';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -16,49 +17,92 @@ function AppContent() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  // Load user from localStorage on app start
   useEffect(() => {
-    const savedToken = localStorage.getItem('token');
-    const savedUser = localStorage.getItem('user');
-    if (savedToken && savedUser) {
-      const parsedUser = JSON.parse(savedUser);
-      setUser(parsedUser);
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch {
+        setUser(null);
+      }
     }
   }, []);
 
-  const handleLoginSuccess = (userData, authToken) => {
-    setUser(userData);
-    localStorage.setItem('token', authToken);
-    localStorage.setItem('user', JSON.stringify(userData));
+  const handleLoginSuccess = (userData, token) => {
+    if (userData) {
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+    }
+    if (token) {
+      localStorage.setItem('token', token);
+    }
     navigate('/');
   };
 
   const handleRegisterSuccess = () => {
+    // After successful registration, go to login page
     navigate('/login');
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     setUser(null);
-    navigate('/login');
+    navigate('/');
   };
 
-  // Check if user is admin - either from state or localStorage
-  const isAdmin = user?.role === 'admin' || JSON.parse(localStorage.getItem('user'))?.role === 'admin';
+  const PaymentInfoPage = () => <PaymentSection />;
 
   return (
-    <div className="App">
+    <div className="app-root">
       <Header user={user} onLogout={handleLogout} />
-      <Routes>
-        <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-        <Route path="/register" element={<Register onRegisterSuccess={handleRegisterSuccess} />} />
-        <Route path="/" element={<Home user={user} />} />
-        <Route path="/fleet" element={user ? <CarList /> : <Navigate to="/login" replace />} />
-        <Route path="/admin" element={isAdmin ? <AdminDashboard user={user || JSON.parse(localStorage.getItem('user'))} onLogout={handleLogout} /> : <Navigate to="/" replace />} />
-        <Route path="/reservations" element={user ? <Reservations user={user} /> : <Navigate to="/login" replace />} />
-      </Routes>
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/fleet" element={<CarList />} />
+          <Route
+            path="/login"
+            element={
+              user ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Login onLoginSuccess={handleLoginSuccess} />
+              )
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              user ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Register onRegisterSuccess={handleRegisterSuccess} />
+              )
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              user && user.role === 'admin' ? (
+                <AdminDashboard user={user} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="/reservations"
+            element={<Reservations user={user} />}
+          />
+          <Route
+            path="/payment-info"
+            element={<PaymentInfoPage />}
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
       <Footer />
-      {/* Toast notifications container for the entire app */}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar theme="colored" />
     </div>
   );

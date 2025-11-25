@@ -1,0 +1,176 @@
+.fleet-card {
+  background-color: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fleet-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+}
+
+.fleet-card-image-wrapper {
+  position: relative;
+  padding-top: 56%;
+  overflow: hidden;
+}
+
+.fleet-card-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fleet-card-status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.fleet-card-status--available {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.fleet-card-status--booked {
+  background-color: #ffedd5;
+  color: #c05621;
+}
+
+.fleet-card-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fleet-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.fleet-card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.fleet-card-subtitle {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.fleet-card-price-block {
+  text-align: right;
+}
+
+.fleet-card-price {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.fleet-card-price-unit {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.fleet-card-specs-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fleet-card-spec {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.fleet-card-spec-icon {
+  font-size: 11px;
+}
+
+.fleet-card-features {
+  margin-top: 2px;
+}
+
+.fleet-card-features-title {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.fleet-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.fleet-card-tag {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.fleet-card-tag--muted {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+.fleet-card-footer {
+  margin-top: 6px;
+}
+
+.fleet-card-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  background-color: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.35);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+}
+
+.fleet-card-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 34px rgba(37, 99, 235, 0.45);
+}
+
+.fleet-card-btn--disabled {
+  background-color: #9ca3af;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.fleet-card-booking {
+  margin-top: 10px;
+}
