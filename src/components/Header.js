@@ -21,6 +21,11 @@ export default function Header({ user, onLogout }) {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const goToChangePassword = () => {
+    setMenuOpen(false);
+    navigate('/change-password');
+  };
+
   return (
     <header className="header">
       <div className="header-container">
@@ -34,28 +39,16 @@ export default function Header({ user, onLogout }) {
 
         {/* Desktop nav */}
         <nav className="header-nav">
-          <Link
-            to="/"
-            className="header-nav-link"
-          >
+          <Link to="/" className="header-nav-link">
             Home
           </Link>
-          <Link
-            to="/fleet"
-            className="header-nav-link"
-          >
+          <Link to="/fleet" className="header-nav-link">
             Fleet
           </Link>
-          <Link
-            to="/reservations"
-            className="header-nav-link"
-          >
+          <Link to="/reservations" className="header-nav-link">
             Reservations
           </Link>
-          <Link
-            to="/payment-info"
-            className="header-nav-link"
-          >
+          <Link to="/payment-info" className="header-nav-link">
             Payment Info
           </Link>
           <a href="#contact" className="header-nav-link">
@@ -77,6 +70,13 @@ export default function Header({ user, onLogout }) {
                   Admin
                 </button>
               )}
+              <button
+                className="header-login-link"
+                type="button"
+                onClick={goToChangePassword}
+              >
+                Change Password
+              </button>
               <button
                 className="header-logout-btn"
                 type="button"
@@ -144,6 +144,13 @@ export default function Header({ user, onLogout }) {
                     Admin
                   </button>
                 )}
+                <button
+                  className="header-mobile-login-link"
+                  type="button"
+                  onClick={goToChangePassword}
+                >
+                  Change Password
+                </button>
                 <button
                   className="header-mobile-logout-btn"
                   type="button"

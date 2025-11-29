@@ -9,6 +9,9 @@ import Reservations from './components/Reservations';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import PaymentSection from './components/PaymentSection';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
+import ChangePassword from './components/ChangePassword';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -41,7 +44,6 @@ function AppContent() {
   };
 
   const handleRegisterSuccess = () => {
-    // After successful registration, go to login page
     navigate('/login');
   };
 
@@ -52,7 +54,17 @@ function AppContent() {
     navigate('/');
   };
 
-  const PaymentInfoPage = () => <PaymentSection />;
+  const PaymentInfoPage = () => (
+    <div style={{ backgroundColor: '#f3f4f6', padding: '24px 0 40px' }}>
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 16px' }}>
+        <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>Payment Information</h1>
+        <p style={{ fontSize: '14px', color: '#4b5563', marginBottom: '16px' }}>
+          All reservations are paid in cash when you pick up your vehicle. No online payment is required.
+        </p>
+        <PaymentSection />
+      </div>
+    </div>
+  );
 
   return (
     <div className="app-root">
@@ -81,6 +93,14 @@ function AppContent() {
               )
             }
           />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route
+            path="/change-password"
+            element={
+              user ? <ChangePassword /> : <Navigate to="/login" replace />
+            }
+          />
           <Route
             path="/admin"
             element={
@@ -91,14 +111,8 @@ function AppContent() {
               )
             }
           />
-          <Route
-            path="/reservations"
-            element={<Reservations user={user} />}
-          />
-          <Route
-            path="/payment-info"
-            element={<PaymentInfoPage />}
-          />
+          <Route path="/reservations" element={<Reservations user={user} />} />
+          <Route path="/payment-info" element={<PaymentInfoPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
